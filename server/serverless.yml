@@ -1,0 +1,30 @@
+app: remix
+component: http
+name: remix
+inputs:
+  region: ap-guangzhou
+  src:
+    dist: ./
+    hook: cp package.json ./server/package.json &&npm i &&npm run build
+    exclude:
+      - .env
+  faas: 
+    framework: express
+    runtime: Nodejs12.16
+    timeout: 10 # 超时时间，单位秒
+    memorySize: 512 # 内存大小，单位MB
+    layers:
+      - name: nextdev-layer # nodejs14环境
+        version: 3
+  apigw:
+    service: service
+    name: remixbackend
+    protocols:
+      - http
+      - https
+    environment: release
+    customDomains: # 自定义域名绑定
+      - domain: hello.jiahuiblog.com # 待绑定的自定义的域名
+    endpoints:
+      - path: /
+        method: ANY

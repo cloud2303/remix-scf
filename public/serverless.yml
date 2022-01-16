@@ -1,0 +1,26 @@
+app: remix
+stage: dev
+component: cos
+name: remix
+
+inputs:
+  bucket: remix-static-test
+  src:
+    src: ./
+  targetDir: /
+  exclude:
+    - serverless.yml
+  region: ap-guangzhou
+  replace: true
+  acl:
+    permissions: public-read
+  cors:
+    - maxAgeSeconds: 0
+      allowedMethods:
+        - GET
+      allowedOrigins:
+        - '*'
+      allowedHeaders:
+        - '*'
+      exposeHeaders:
+        - ''
