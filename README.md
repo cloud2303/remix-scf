@@ -1,6 +1,7 @@
 腾讯云serverless 部署remix
 remix + express
 
+预览地址：[https://hello.jiahuiblog.com](https://hello.jiahuiblog.com)
 ### 第一次配置(比较麻烦)
 
 总体来说不太好用，在根目录下新建一个.env，配置好secretkey和id，按照官网教程配置好权限
