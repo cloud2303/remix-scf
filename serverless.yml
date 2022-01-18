@@ -1,0 +1,21 @@
+app: remix
+component: http
+name: remix
+inputs:
+  region: ap-guangzhou
+  src:
+    dist: ./
+    hook: npm i &&npm run build
+    exclude:
+      - .env
+  faas: 
+    framework: express
+    runtime: Nodejs14.18
+    timeout: 10 # 超时时间，单位秒
+    memorySize: 512 # 内存大小，单位MB
+  assets:
+    cos:
+      bucket: static-bucket
+      sources:
+        - src: 'public'
+          targetDir: '/' 

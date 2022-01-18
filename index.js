@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const { createRequestHandler } = require("@remix-run/express");
 
 const MODE = process.env.NODE_ENV;
-const BUILD_DIR = path.join(process.cwd(), "server/build");
+const BUILD_DIR = path.join(process.cwd(), "build");
 
 const app = express();
 app.use(compression());
@@ -22,10 +22,10 @@ app.all(
   MODE === "production"
     ? createRequestHandler({ build: require("./build") })
     : (req, res, next) => {
-        purgeRequireCache();
-        const build = require("./build");
-        return createRequestHandler({ build, mode: MODE })(req, res, next);
-      }
+      purgeRequireCache();
+      const build = require("./build");
+      return createRequestHandler({ build, mode: MODE })(req, res, next);
+    }
 );
 
 const port = process.env.PORT || 9000;
