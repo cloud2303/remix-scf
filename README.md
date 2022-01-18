@@ -2,37 +2,41 @@
 remix + express
 
 预览地址：[https://hello.jiahuiblog.com](https://hello.jiahuiblog.com)
-### 第一次配置(比较麻烦)
 
-总体来说不太好用，在根目录下新建一个.env，配置好secretkey和id，按照官网教程配置好权限
+(腾讯云，永远滴神～)
+## 第一次配置
 
-https://cn.serverless.com/framework/docs-guides-tencent-account
+1. 配置好你的.env环境文件
 
-因为腾讯云没有nodejs14环境，所以我加了一个layer，含有nodejs14环境（不要问冷启动时间，问就是1000ms以上）
+    在根目录下新建一个.env，配置好secretkey和id，按照官网教程配置好权限
 
-在server scf_bootstrap可以看到路径
+    https://cn.serverless.com/framework/docs-guides-tencent-account
 
-需要在server/serverless.yml配置下layer(上传加改个名字加找对路径)
+2. 存储桶配置
+   1. 手动在网页添加cos存储桶
+   2. 复制下存储桶访问地址，粘贴在remix.config.js的`publicPath`那里，注意后面有个`/build`
+   3. 把存储桶名字粘贴到`serverless.yml`的`assets`字段下的`bucket`那里
 
-如果你不喜欢这个存储桶名字的话～，在public目录下修改serverless.yml的bucket
+3. 自定义域名配置
 
-这些配置搞完之后在server的目录下执行`sls deploy`
+    如果你不做自定义域名解析的话可以将`serverless.yml`的`apigw`字段及下方的所有代码注释掉
 
-上传之后会返回一个url，你可以直接访问，记得把/release去掉
+4. `sls deploy`
 
-注意，这个时候你是没有上传静态文件的，所以样式都会丢
+## 配置以后
 
-这个时候需要你进入public目录下面执行一下`sls deploy`
+`sls deploy`
 
-然后你注意console返回的cosOrigin，即存储桶地址，如果是一个没创建的存储桶，第一次上传会报不存在，那你就去cos网页上看存储桶地址(他创建了但是报错然后不返回～)，把访问域名记下来，然后粘贴在根目录下面的remix.config.js的publicpath那里,注意看我的例子(后面有个/build)
+非常方便～
 
-然后呢你重新先在server目录下sls deploy，然后再public下面sls deploy，就可以看到部署好的项目了
 
-### 第二次及以后
 
-先在server目录下sls deploy，然后再public下面sls deploy，就可以看到部署好的项目了(blablablablabla.......)
 
-建议直接coding这些集成工具走下来吧
+
+
+
+
+
 
 
 

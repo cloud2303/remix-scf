@@ -15,7 +15,27 @@ inputs:
     memorySize: 512 # 内存大小，单位MB
   assets:
     cos:
-      bucket: static-bucket
+      bucket: remix-static-test #你的存储桶的名字
       sources:
         - src: 'public'
           targetDir: '/' 
+
+  #不做自定义域名可以注释下方代码
+  apigw: # http 组件会默认帮忙创建一个 API 网关服务
+    api: # 创建的 API 相关配置
+      cors: true #  允许跨域
+    protocols:
+      - http
+      - https
+    environment: release
+    customDomains: # 自定义域名绑定
+      - domain: hello.abc.com # 待绑定的自定义的域名
+        certId: yoursslID # 待绑定自定义域名的证书唯一 ID
+        customMap: false #自定义映射路径 不能删
+        isDefaultMapping: false  #自定义映射路径  不能删
+        pathMap:
+          - path: /
+            environment: release
+        protocols: # 绑定自定义域名的协议类型，默认与服务的前端协议一致。
+          - http # 支持http协议
+          - https # 支持https协议
